@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import Experience from "./experience";
 
@@ -13,43 +14,39 @@ export default class Camera {
         this.canvas = this.experience.canvas;
 
         this.createPerspectiveCamera();
-        this.createOrthographicCamera();
 
+        this.setOrbitControls();
     }
 
     createPerspectiveCamera() {
-        this.perspectiveCamera = new THREE.PerspectiveCamera(35, this.sizes.aspect, 0.1, 1000)
-        this.scene.add(this.perspectiveCamera);
+        this.perspectiveCamera = new THREE.PerspectiveCamera(10, this.sizes.width / this.sizes.height, 0.1, 150)
+        this.perspectiveCamera.rotation.reorder('YXZ')
+        this.perspectiveCamera.position.set(15, 15, 15);
     }
 
-    createOrthographicCamera() {
-        this.frustrum = 5;
+    setOrbitControls() {
+        this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
+        this.controls.maxAzimuthAngle = Math.PI / 2;
+        this.controls.minAzimuthAngle = Math.PI / 8;
 
-        this.orthographicCamera = new THREE.OrthographicCamera(
-            (-this.sizes.aspect * this.sizes.frustrum) / 2,
-            (this.sizes.aspect * this.sizes.frustrum) / 2,
-            this.sizes.frustrum / 2,
-            -this.sizes.frustrum / 2,
-            -100,
-            100
-        );
-
-        this.scene.add(this.orthographicCamera);
+        this.controls.maxPolarAngle = Math.PI / 2;
+        this.controls.minPolarAngle = Math.PI / 8;
+        
+        this.controls.screenSpacePanning = true;
+        this.controls.enableKeys = false;
+        this.controls.zoomSpeed = 0.25;
+        this.controls.enableDamping = true;
+        this.controls.enableZoom = true;
+        this.controls.enablePan = true;
     }
 
     resize() {
         this.perspectiveCamera.aspect = this.sizes.aspect;
         this.perspectiveCamera.updateProjectionMatrix();
-
-        this.orthographicCamera.left = (-this.sizes.aspect * this.sizes.frustrum) / 2
-        this.orthographicCamera.right = (this.sizes.aspect * this.sizes.frustrum) / 2
-        this.orthographicCamera.top = this.sizes.frustrum / 2
-        this.orthographicCamera.bottom = -this.sizes.frustrum / 2
-        this.orthographicCamera.updateProjectionMatrix()
     }
 
     update() {
-
+        this.controls.update();
     }
 
 }
