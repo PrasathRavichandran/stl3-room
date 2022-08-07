@@ -1,4 +1,4 @@
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 export default class Sizes extends EventEmitter {
     constructor() {
@@ -6,8 +6,9 @@ export default class Sizes extends EventEmitter {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.aspect = this.width / this.height;
+        this.frustrum = 5;
 
-        this.pixelRatio = Math.min(window.devicePixelRatio, 2);
+        this.pixelRatio = Math.min(Math.max(window.devicePixelRatio, 1), 2)
 
         // For resize
         window.addEventListener('resize', () => {
@@ -15,7 +16,7 @@ export default class Sizes extends EventEmitter {
             this.height = window.innerHeight;
             this.aspect = this.width / this.height;
 
-            this.pixelRatio = Math.min(window.devicePixelRatio, 2);
+            this.pixelRatio = Math.min(Math.max(window.devicePixelRatio, 1), 2)
             this.emit('resize');
         })
     }

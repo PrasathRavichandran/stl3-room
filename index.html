@@ -10,6 +10,30 @@
     <div class="experience">
       <canvas class="experience-canvas"></canvas>
     </div>
+
+    <div class="indicator">
+      <div class="row">
+        <img src="/Icons/mouse-left.png" class="icon-img" />
+        <p>Rotate</p>
+      </div>
+      <div class="row">
+        <img src="/Icons/mouse-right.png" class="icon-img" />
+        <p>Move</p>
+      </div>
+    </div>
+
+    <div class="controller">
+      <div class="texture-container">
+        <!-- <p>Textures</p> -->
+        <div class="render-texture"></div>
+      </div>
+    </div>
+
+    <div class="loader">
+      <label for="loader-bar">Loading...</label>
+      <progress id="progress-bar" value="0" max="100" />
+    </div>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
