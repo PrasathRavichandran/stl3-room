@@ -29,7 +29,20 @@ export default class Resources extends EventEmitter {
     setLoaders() {
 
         this.loaders = {};
-        this.loaders.gltfLoader = new GLTFLoader();
+
+        const loadingManager = new THREE.LoadingManager();
+        const progressBar = document.getElementById('progress-bar');
+        const loader = document.querySelector('.loader');
+
+        loadingManager.onProgress = (url, loaded, total) => {
+            progressBar.value = (loaded / total) * 100;
+        }
+
+        loadingManager.onLoad = () => {
+            loader.style.display = 'none';
+        }
+
+        this.loaders.gltfLoader = new GLTFLoader(loadingManager);
         this.loaders.dracoLoader = new DRACOLoader();
 
         this.loaders.dracoLoader.setDecoderPath('/draco/');
