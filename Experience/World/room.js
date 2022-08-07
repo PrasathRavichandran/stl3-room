@@ -36,7 +36,7 @@ export default class Room {
             }
 
             if (child.name === 'Platform_RoomWall') {
-                this.gui.addColor({ boxMeshColor: child.material.color.getHex() }, 'boxMeshColor')
+                this.gui.addColor({ Room_wall_color: child.material.color.getHex() }, 'Room_wall_color')
                     .onChange((value) => child.material.color.set(value))
             }
 
