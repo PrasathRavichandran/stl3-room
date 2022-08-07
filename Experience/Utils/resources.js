@@ -37,6 +37,9 @@ export default class Resources extends EventEmitter {
     };
 
     startLoading() {
+
+        const renderElem = document.querySelector('.render-texture');
+
         for (const asset of this.assets) {
             if (asset.type === 'glbModel') {
                 this.loaders.gltfLoader.load(asset.path, (file) => {
@@ -44,6 +47,14 @@ export default class Resources extends EventEmitter {
                 });
             }
             else if (asset.type === 'texture') {
+
+                let img = document.createElement('img');
+                img.src = asset.path;
+                img.className = "controller-img";
+                img.dataset.imgId = asset.name;
+
+                renderElem.appendChild(img);
+
                 this.imageTexture = {};
 
                 this.imageTexture[asset.name] = new THREE.TextureLoader().load(asset.path);

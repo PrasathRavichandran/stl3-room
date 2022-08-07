@@ -22,10 +22,17 @@ export default class Room {
             child.receiveShadow = true;
 
             if (child.name === 'Platform_Base') {
-                child.material = new THREE.MeshBasicMaterial({ map: this.resources.items.wood });
+                child.material = new THREE.MeshBasicMaterial({ map: this.resources.items.woodTwo });
+
+                const textureImg = document.querySelectorAll('.controller-img');
+
+                textureImg?.forEach(item => {
+                    item.onclick = () => {
+                        child.material.map = this.resources.items[item.getAttribute('data-img-id')];
+                    }
+                })
             }
 
-            // Loading dynamic contents here
         })
         this.scene.add(this.actualRoom);
     }
@@ -34,6 +41,7 @@ export default class Room {
     }
 
     update() {
+
     }
 
 }

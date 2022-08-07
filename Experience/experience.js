@@ -4,6 +4,7 @@ import Sizes from './Utils/sizes';
 import Time from './Utils/time';
 import Resources from './Utils/resources';
 import assets from './Utils/assets';
+import Stats from './Utils/stats';
 
 import Camera from './camera';
 import Renderer from './Renderer';
@@ -24,6 +25,7 @@ export default class Experience {
         this.scene = new THREE.Scene();
         this.times = new Time();
         this.sizes = new Sizes();
+        this.stats = new Stats(true);
         this.camera = new Camera();
         this.renderer = new Renderer();
         this.resources = new Resources(assets);
