@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as dat from 'dat.gui';
 
 import Experience from "../experience";
 
@@ -11,6 +12,7 @@ export default class Room {
         this.resources = this.experience.resources;
         this.room = this.resources.items.room;
         this.actualRoom = this.room.scene;
+        this.gui = new dat.GUI();
 
         this.setModel();
     }
@@ -33,6 +35,11 @@ export default class Room {
                 })
             }
 
+            if (child.name === 'Platform_RoomWall') {
+                this.gui.addColor({ boxMeshColor: child.material.color.getHex() }, 'boxMeshColor')
+                    .onChange((value) => child.material.color.set(value))
+            }
+
         })
         this.scene.add(this.actualRoom);
     }
@@ -41,7 +48,6 @@ export default class Room {
     }
 
     update() {
-
     }
 
 }
